@@ -1,6 +1,9 @@
-- name: Copy file with owner and permissions
+--- 
+name: Copy file with owner and permissions
+hosts: all
+tasks:
   copy:
     content: '# This file was moved to green'
-    src: /srv/myfiles/foo.conf
+    src: /home/ubuntu/files
     dest: /etc/foo.conf
     mode: '777'
