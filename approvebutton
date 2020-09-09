@@ -1,0 +1,33 @@
+pipeline {
+    agent none
+    stages {
+        stage('Build') {
+            agent any
+            steps {
+                echo 'compiling...'
+            }
+        }
+        stage('Test') {
+            agent any
+            steps {
+                echo 'testing...'
+            }
+        }
+        stage('Approval') {
+            // no agent, so executors are not used up when waiting for approvals
+            agent none
+            steps {
+                script {
+                    def rjkd = 
+                    input id: 'aditya', 
+                    message: 'Deploy to production?', 
+                    submitter: 'duj,admin', 
+                    parameters: [choice(choices: ['0','24'], 
+                    description: 'Hours to delay deployment?', name: 'rajsd')]
+                    println choice
+                    }
+            }
+        }
+        
+    }
+}
